@@ -2,6 +2,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerCombatScript : MonoBehaviour
 {
@@ -15,6 +16,31 @@ public class PlayerCombatScript : MonoBehaviour
 
     private CharacterController characterController;
 
+  
+    public CinemachineVirtualCamera cameraA;
+    public CinemachineVirtualCamera cameraB;
+
+    private bool usingCameraA = true;
+
+    public void switchCamera()
+    {
+        if (cameraA != null && cameraB != null)
+        {
+            if (usingCameraA)
+            {
+                cameraA.Priority = 0;
+                cameraB.Priority = 10;
+            }
+            else
+            {
+                cameraA.Priority = 10;
+                cameraB.Priority = 0;
+            }
+
+            usingCameraA = !usingCameraA;
+        }
+    }
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -24,7 +50,6 @@ public class PlayerCombatScript : MonoBehaviour
 
     void Update()
     {
-        // Get horizontal movement speed (ignore Y axis to avoid gravity affecting it)
         moveSpeed = new Vector3(characterController.velocity.x, 0f, characterController.velocity.z).magnitude;
 
         if (moveSpeed < 0.1f)
@@ -44,6 +69,15 @@ public class PlayerCombatScript : MonoBehaviour
                 trueIdleFlag = false;
                 playerAnimator.SetBool("IsTrueIdle", false);
             }
+        }
+    }
+
+   
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CameraSwitchTrigger"))
+        {
+            switchCamera();
         }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Tree
+  - CameraSwitchTrigger
   layers:
   - Default
   - TransparentFX
