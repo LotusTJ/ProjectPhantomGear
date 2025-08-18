@@ -40,6 +40,7 @@ public class PlayerCombatScript : MonoBehaviour
             usingCameraA = !usingCameraA;
         }
     }
+   
 
     void Start()
     {
@@ -72,7 +73,6 @@ public class PlayerCombatScript : MonoBehaviour
         }
     }
 
-   
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("CameraSwitchTrigger"))
