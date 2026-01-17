@@ -1,0 +1,4 @@
+repository "ProjectPhantomGear@GearPlay@cloud"
+  path "/"
+    br "/main"
+    co "/main"
